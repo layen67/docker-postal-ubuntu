@@ -10,6 +10,7 @@ RUN apt-get -y update \
 	&& apt-get -y install --no-install-recommends nodejs mysql-client git-core libcap2-bin \
         && git clone https://github.com/atech/postal.git /opt/postal \
 	&& mv /opt/postal/config /opt/postal/config_src \
+	&& mkdir /opt/postal/config \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& gem install bundler \
 	&& gem install procodile \
