@@ -1,5 +1,10 @@
 #!/bin/bash
 
+## Reseat config
+cp -R /opt/postal/config_src/* /opt/postal/config_target
+cp -R /opt/postal/config/* /opt/postal/config_target
+mv /opt/postal/config_target/* /opt/postal/config/
+
 ## Generate config
 if [ ! -f /opt/postal/config/postal.yml ] || [[ $(cat /opt/postal/config/postal.yml | wc -l) < 2 ]]; then
 	## Build Jinja2 Template
@@ -10,7 +15,6 @@ if [ ! -f /opt/postal/config/postal.yml ] || [[ $(cat /opt/postal/config/postal.
 	## Generate config and keys
 	/opt/postal/bin/postal initialize-config
 fi
-cat /opt/postal/config/postal.yml
 
 ## Clean Up
 rm -rf /opt/postal/tmp/pids/*
