@@ -1,9 +1,11 @@
 #!/bin/bash
 
 ## Reseat config
+mkdir /opt/postal/config_target
 cp -R /opt/postal/config_src/* /opt/postal/config_target/
 cp -R /opt/postal/config/* /opt/postal/config_target/
 mv /opt/postal/config_target/* /opt/postal/config/
+rm -r /opt/postal/config_target
 
 ## Generate config
 if [ ! -f /opt/postal/config/postal.yml ] || [[ $(cat /opt/postal/config/postal.yml | wc -l) < 2 ]]; then
