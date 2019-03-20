@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Reseat config
-cp -R /opt/postal/config_src/* /opt/postal/config_target
-cp -R /opt/postal/config/* /opt/postal/config_target
+cp -R /opt/postal/config_src/* /opt/postal/config_target/
+cp -R /opt/postal/config/* /opt/postal/config_target/
 mv /opt/postal/config_target/* /opt/postal/config/
 
 ## Generate config
