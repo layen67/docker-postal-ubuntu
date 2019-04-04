@@ -23,7 +23,7 @@ cd docker-postal-ubuntu/ubuntu;
 chmod +x /var/lib/docker/docker-postal-ubuntu/boot.sh;
 docker-compose up -d;
 sleep 15
-sed -i -e "s/example.com/$1/g" /var/lib/docker/docker-postal-ubuntu/data/postal/config/postal.yml;
+docker exec -ti postal sh -c "sed -i -e "s/example.com/$1/g" /opt/postal/config/postal.yml;"
 docker-compose run postal initialize-config;
 docker-compose run postal initialize;
 docker-compose run postal make-user;
