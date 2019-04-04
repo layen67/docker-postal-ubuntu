@@ -14,16 +14,16 @@ chmod +x /usr/local/bin/docker-compose;
 yum -y remove postfix;
 
 chmod +x /etc/rc.d/rc.local;
-echo "/var/lib/docker/postallastix/boot.sh" >> /etc/rc.d/rc.local;
+echo "/var/lib/docker/docker-postal-ubuntu/boot.sh" >> /etc/rc.d/rc.local;
 systemctl enable rc-local;
 
 cd /var/lib/docker;
 git clone https://github.com/layen67/docker-postal-ubuntu.git;
 cd docker-postal-ubuntu/ubuntu;
-chmod +x /var/lib/docker/postallastix/boot.sh;
+chmod +x /var/lib/docker/docker-postal-ubuntu/boot.sh;
 docker-compose up -d;
 sleep 15
-sed -i -e "s/example.com/$1/g" /var/lib/docker/postallastix/data/postal/config/postal.yml;
+sed -i -e "s/example.com/$1/g" /var/lib/docker/docker-postal-ubuntu/data/postal/config/postal.yml;
 docker-compose run postal initialize-config;
 docker-compose run postal initialize;
 docker-compose run postal make-user;
