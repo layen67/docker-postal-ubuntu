@@ -14,11 +14,5 @@ chmod +x /usr/local/bin/docker-compose;
 yum -y remove postfix;
 
 chmod +x /etc/rc.d/rc.local;
-echo "/var/lib/docker/docker-postal-ubuntu/boot.sh" >> /etc/rc.d/rc.local;
+#echo "/var/lib/docker/docker-postal-ubuntu/boot.sh" >> /etc/rc.d/rc.local;
 systemctl enable rc-local;
-
-cd /var/lib/docker;
-git clone https://github.com/layen67/docker-postal-ubuntu.git;
-cd docker-postal-ubuntu/ubuntu;
-chmod +x /var/lib/docker/docker-postal-ubuntu/boot.sh;
-docker-compose up -d;
