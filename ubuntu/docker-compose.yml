@@ -47,6 +47,7 @@ services:
       - ./src/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - static_assets:/opt/postal/public:ro
       - ./data/postal/assets:/opt/postal/public/assets:ro
+      - ./data/postal/config:/opt/postal/config:ro
 volumes:
   static_assets:
 
