@@ -28,10 +28,3 @@ docker-compose run postal initialize-config;
 docker-compose run postal initialize;
 docker-compose run postal make-user;
 docker-compose run postal start;
-
-sed -i -e "s/example.com/$1/g" /var/lib/docker/postallastix/data/postal/config/postal.yml;
-docker-compose run postal initialize-config;
-
-docker-compose run postal initialize;
-docker-compose run postal make-user;
-docker-compose run postal start;
