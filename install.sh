@@ -22,9 +22,10 @@ git clone https://github.com/layen67/docker-postal-ubuntu.git;
 cd docker-postal-ubuntu/ubuntu;
 chmod +x /var/lib/docker/docker-postal-ubuntu/boot.sh;
 docker-compose up -d;
-sleep 15
-docker exec -ti postal sh -c "sed -i -e "s/example.com/$1/g" /opt/postal/config/postal.yml;"
+sleep 5
 docker-compose run postal initialize-config;
+sleep 5
+docker exec -ti postal sh -c "sed -i -e "s/example.com/$1/g" /opt/postal/config/postal.yml;"
 docker-compose run postal initialize;
 docker-compose run postal make-user;
 docker-compose run postal start;
