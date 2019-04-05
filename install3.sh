@@ -74,11 +74,14 @@ openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/n
 service nginx reload
 
 cd /etc/systemd/system;
-curl -O https://raw.githubusercontent.com/layen67/docker-postal-ubuntu/master/postal.service
-
+curl -O https://raw.githubusercontent.com/layen67/docker-postal-ubuntu/master/postal.service;
+systemctl daemon-reload;
+systemctl enable postal;
+systemctl start postal;
 
 #
 # All done
 #
 echo
 echo "Installation complete"
+reboot;
