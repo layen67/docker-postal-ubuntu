@@ -69,7 +69,7 @@ postal start
 #
 cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default
 mkdir /etc/nginx/ssl/
-openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=Example/L=Example/O=Example/CN=example.com"
+openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.businessbox.xyz"
 service nginx reload
 
 #
