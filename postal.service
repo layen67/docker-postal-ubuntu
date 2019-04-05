@@ -1,0 +1,15 @@
+[Unit]
+Description=Postal Mail Platform
+After=mysql.service rabbitmq-server.service
+Wants=mysql.service rabbitmq-server.service
+
+[Service]
+ExecStart=/usr/bin/postal start
+ExecStop=/usr/bin/postal stop
+ExecReload=/usr/bin/postal restart
+User=postal
+Restart=on-failure
+Type=forking
+
+[Install]
+WantedBy=mysql.service rabbitmq-server.service
