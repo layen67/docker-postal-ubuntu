@@ -68,10 +68,13 @@ postal start;
 #
 # nginx
 #
-#cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default
+cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default
 #mkdir /etc/nginx/ssl/
 #openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.$1"
 #service nginx reload
+wget https://dl.eff.org/certbot-auto -O /usr/sbin/certbot-auto
+chmod a+x /usr/sbin/certbot-auto
+certbot-auto --nginx -d postal.$1
 
 cd /etc/systemd/system;
 curl -O https://raw.githubusercontent.com/layen67/docker-postal-ubuntu/master/postal.service;
