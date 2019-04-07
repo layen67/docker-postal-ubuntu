@@ -98,6 +98,7 @@ sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 
 service nginx restart;
 sleep 10
+postal start
 postal make-user;
 sleep 5
 #
