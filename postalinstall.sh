@@ -68,10 +68,10 @@ postal start;
 #
 # nginx
 #
-cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default
-mkdir /etc/nginx/ssl/
-openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.$1"
-service nginx reload
+cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default;
+mkdir /etc/nginx/ssl/;
+openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.$1";
+service nginx reload;
 
 cd /etc/systemd/system;
 curl -O https://raw.githubusercontent.com/layen67/docker-postal-ubuntu/master/postal.service;
@@ -97,7 +97,8 @@ sed -i -r 's/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/liv
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 
 service nginx restart;
-# postal make-user;
+sleep 5
+postal make-user;
 #
 # All done
 #
