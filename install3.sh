@@ -79,6 +79,24 @@ systemctl daemon-reload;
 systemctl enable postal;
 systemctl start postal;
 
+apt-get -y install software-properties-common;
+add-apt-repository -y ppa:certbot/certbot;
+apt-get -y update;
+apt-get -y install certbot;
+apt-get -y install python-certbot-nginx;
+
+certbot certonly \
+  --nginx \
+  --non-interactive \
+  --agree-tos \
+  --email lkbcontact@gmail.com \
+  --domains postal.$1
+
+sed -i -r 's/.*server.crt.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g' /etc/nginx/sites-available/default;
+sed -i -r 's/.*server.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g' /etc/nginx/sites-available/default;
+
+service nginx restart
+
 #
 # All done
 #
