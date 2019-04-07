@@ -97,7 +97,7 @@ sed -i -r 's/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/liv
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 
 service nginx restart;
-sleep 5
+sleep 10
 postal make-user;
 #
 # All done
