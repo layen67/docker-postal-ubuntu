@@ -94,7 +94,7 @@ certbot certonly \
 
 sed -i -r 's/.*postal.cert.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g' /etc/nginx/sites-available/default;
 sed -i -r 's/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g' /etc/nginx/sites-available/default;
-sed -i -e "s/example.com/$1/g" /etc/nginx/sites-available/default;
+sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 
 service nginx restart;
 # postal make-user;
