@@ -117,5 +117,5 @@ echo   strip_received_headers: false >> /opt/postal/config/postal.yml
 # All done
 #
 echo
-echo "Installation complete"
+echo "Installation complete your server reboot now"
 reboot;
