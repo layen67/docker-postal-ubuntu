@@ -100,18 +100,17 @@ service nginx restart;
 sleep 10
 postal start
 postal make-user;
-sleep 5
 chown -R postal:postal /etc/letsencrypt
 
-echo  >> /opt/postal/config/postal.yml
-echo smtp_server: >> /opt/postal/config/postal.yml
-echo   port: 25 >> /opt/postal/config/postal.yml
-echo   tls_enabled: true >> /opt/postal/config/postal.yml
-echo   tls_certificate_path: /etc/letsencrypt/live/postal.$1/fullchain.pem >> /opt/postal/config/postal.yml
-echo   tls_private_key_path: /etc/letsencrypt/live/postal.$1/privkey.pem >> /opt/postal/config/postal.yml
-echo   proxy_protocol: false >> /opt/postal/config/postal.yml
-echo   log_connect: true >> /opt/postal/config/postal.yml
-echo   strip_received_headers: false >> /opt/postal/config/postal.yml
+echo '' | sudo tee -a /opt/postal/config/postal.yml;
+echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 25' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_certificate_path: /etc/letsencrypt/live/postal.$1/fullchain.pem' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_private_key_path: /etc/letsencrypt/live/postal.$1/privkey.pem' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  strip_received_headers: false' | sudo tee -a /opt/postal/config/postal.yml;
 
 #
 # All done
