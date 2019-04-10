@@ -112,10 +112,11 @@ echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  strip_received_headers: false' | sudo tee -a /opt/postal/config/postal.yml;
 sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
+echo 'postal.$1' > /etc/hostname
 
 #
 # All done
 #
 echo
-echo "Installation complete your server reboot now"
+echo "Installation complete your server reboot now https://postal.$1"
 reboot;
