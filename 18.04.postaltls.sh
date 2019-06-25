@@ -20,7 +20,7 @@ set -e
 #
 # Dependencies
 #
-apt-get install -y libcap2;
+apt-get install -y libcap2 sudo;
 apt update;
 apt-get install apt-transport-https;
 apt install -y software-properties-common;
