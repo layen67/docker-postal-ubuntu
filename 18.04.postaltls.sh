@@ -2,7 +2,7 @@
 domain=$1;
 
 # This will install everything required to run a basic Postal installation.
-# This should be run on a clean Ubuntu 16.04 server.
+# This should be run on a clean Ubuntu 18.04 server.
 #
 # Once the installation has completed you will be able to access the Postal web
 # interface on port 443. It will have a self-signed certificate.
