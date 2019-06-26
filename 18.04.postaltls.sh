@@ -23,7 +23,7 @@ set -e
 apt install -y software-properties-common;
 apt-add-repository ppa:brightbox/ruby-ng;
 apt update;
-apt install -y libcap2-bin;
+apt install -y libcap2-bin nano sudo;
 apt-get install apt-transport-https;
 apt-add-repository ppa:brightbox/ruby-ng -y;
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8;
