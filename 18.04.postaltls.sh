@@ -2,7 +2,7 @@
 domain=$1;
 
 # This will install everything required to run a basic Postal installation.
-# This should be run on a clean Ubuntu 18.04 server.
+# This should be run on a clean Ubuntu 16.04 server.
 #
 # Once the installation has completed you will be able to access the Postal web
 # interface on port 443. It will have a self-signed certificate.
@@ -20,10 +20,10 @@ set -e
 #
 # Dependencies
 #
-apt-get install -y libcap2 sudo;
+apt install -y software-properties-common;
+apt-add-repository ppa:brightbox/ruby-ng;
 apt update;
 apt-get install apt-transport-https;
-apt install -y software-properties-common;
 apt-add-repository ppa:brightbox/ruby-ng -y;
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8;
 add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/10.1/ubuntu xenial main';
