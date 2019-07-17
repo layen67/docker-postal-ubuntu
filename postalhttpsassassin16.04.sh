@@ -110,7 +110,7 @@ echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  host: 127.0.0.1' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
-sed -i -e "s/use_ip_pools: false/use_ip_pools: true/g" /opt/postal/config/postal.yml;
+# sed -i -e "s/use_ip_pools: false/use_ip_pools: true/g" /opt/postal/config/postal.yml;
 
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
