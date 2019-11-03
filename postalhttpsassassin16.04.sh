@@ -114,7 +114,7 @@ echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
 
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
-echo '  port: 25' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 2525' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  tls_certificate_path: /etc/letsencrypt/live/postal.yourdomain.com/fullchain.pem' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  tls_private_key_path: /etc/letsencrypt/live/postal.yourdomain.com/privkey.pem' | sudo tee -a /opt/postal/config/postal.yml;
