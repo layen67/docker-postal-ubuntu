@@ -120,7 +120,7 @@ echo '  tls_certificate_path: /etc/letsencrypt/live/postal.yourdomain.com/fullch
 echo '  tls_private_key_path: /etc/letsencrypt/live/postal.yourdomain.com/privkey.pem' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
-echo '  strip_received_headers: false' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
 sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname
 
