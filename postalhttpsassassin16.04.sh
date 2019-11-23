@@ -122,7 +122,7 @@ echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
 sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
-echo 'postal.$1' > /etc/hostname
+echo 'postal.$1' > /etc/hostname;
 
 #
 # All done
