@@ -68,10 +68,10 @@ postal start;
 #
 # nginx
 #
-cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default;
-mkdir /etc/nginx/ssl/;
-openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.$1";
-service nginx reload;
+#cp /opt/postal/app/resource/nginx.cfg /etc/nginx/sites-available/default;
+#mkdir /etc/nginx/ssl/;
+#openssl req -x509 -newkey rsa:4096 -keyout /etc/nginx/ssl/postal.key -out /etc/nginx/ssl/postal.cert -days 365 -nodes -subj "/C=GB/ST=1Example/L=2Example/O=3Example/CN=postal.$1";
+#service nginx reload;
 
 cd /etc/systemd/system;
 curl -O https://raw.githubusercontent.com/layen67/docker-postal-ubuntu/master/postal.service;
@@ -85,8 +85,8 @@ apt-get -y update;
 apt-get -y install spamassassin;
 systemctl restart spamassassin;
 systemctl enable spamassassin;
-apt-get -y install certbot;
-apt-get -y install python-certbot-nginx;
+#apt-get -y install certbot;
+#apt-get -y install python-certbot-nginx;
 
 #certbot certonly \
 #  --nginx \
@@ -95,9 +95,9 @@ apt-get -y install python-certbot-nginx;
 #  --email lkbcontact@gmail.com \
 #  --domains postal.$1
 
-sed -i -r "s/.*postal.cert.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g" /etc/nginx/sites-available/default;
-sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g" /etc/nginx/sites-available/default;
-sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
+#sed -i -r "s/.*postal.cert.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g" /etc/nginx/sites-available/default;
+#sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g" /etc/nginx/sites-available/default;
+#sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 
 service nginx restart;
 sleep 10
