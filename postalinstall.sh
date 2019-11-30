@@ -30,7 +30,7 @@ curl -sL https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add
 add-apt-repository 'deb http://www.rabbitmq.com/debian/ testing main';
 apt update;
 export DEBIAN_FRONTEND=noninteractive;
-apt install -y ruby2.3 ruby2.3-dev build-essential mariadb-server libmysqlclient-dev rabbitmq-server nodejs git nginx wget nano;
+apt install -y libnetcdf-dev libssl-dev libcrypto++-dev libgmp-dev ruby-mysql2 ruby2.3 ruby2.3-dev build-essential mariadb-server libmysqlclient-dev rabbitmq-server nodejs git nginx wget nano;
 gem install bundler procodile --no-rdoc --no-ri;
 
 #
@@ -82,15 +82,11 @@ systemctl start postal;
 apt-get -y install software-properties-common;
 add-apt-repository -y ppa:certbot/certbot;
 apt-get -y update;
+apt-get -y install spamassassin;
+systemctl restart spamassassin;
+systemctl enable spamassassin;
 apt-get -y install certbot;
 apt-get -y install python-certbot-nginx;
-
-certbot certonly \
-  --nginx \
-  --non-interactive \
-  --agree-tos \
-  --email lkbcontact@gmail.com \
-  --domains postal.$1
 
 sed -i -r "s/.*postal.cert.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g" /etc/nginx/sites-available/default;
 sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g" /etc/nginx/sites-available/default;
@@ -100,10 +96,30 @@ service nginx restart;
 sleep 10
 postal start
 postal make-user;
-sleep 5
+chown -R postal:postal /etc/letsencrypt
+
+echo '' | sudo tee -a /opt/postal/config/postal.yml;
+echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  host: 127.0.0.1' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
+# sed -i -e "s/use_ip_pools: false/use_ip_pools: true/g" /opt/postal/config/postal.yml;
+
+echo '' | sudo tee -a /opt/postal/config/postal.yml;
+echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 2525' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_certificate_path: /etc/letsencrypt/live/postal.yourdomain.com/fullchain.pem' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_private_key_path: /etc/letsencrypt/live/postal.yourdomain.com/privkey.pem' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
+sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
+echo 'postal.$1' > /etc/hostname;
+
 #
 # All done
 #
 echo
-echo "Installation complete"
+echo "Installation complete your server reboot now https://postal.$1"
 reboot;
