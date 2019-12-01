@@ -136,7 +136,6 @@ firewall-cmd --add-port=2525/tcp --permanent;
 firewall-cmd --add-masquerade --permanent;
 firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
 systemctl restart firewalld;
-ufw disable;
 
 # All done
 #
