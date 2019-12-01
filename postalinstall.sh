@@ -140,7 +140,6 @@ ufw disable;
 
 # All done
 #
-echo
 echo "Installation complete your server reboot now https://postal.$1"
 
 reboot;
