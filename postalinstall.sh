@@ -88,6 +88,13 @@ systemctl enable spamassassin;
 apt-get -y install certbot;
 apt-get -y install python-certbot-nginx;
 
+certbot certonly \
+  --nginx \
+  --non-interactive \
+  --agree-tos \
+  --email lkbcontact@gmail.com \
+  --domains postal.$1
+
 sed -i -r "s/.*postal.cert.*/    ssl_certificate      \/etc\/letsencrypt\/live\/postal.$1\/fullchain.pem;/g" /etc/nginx/sites-available/default;
 sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/etc\/letsencrypt\/live\/postal.$1\/privkey.pem;/g" /etc/nginx/sites-available/default;
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
@@ -118,8 +125,22 @@ sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
 #
+apt update;
+apt-get install -y firewalld;
+systemctl enable firewalld;
+systemctl start firewalld;
+firewall-cmd --add-port=80/tcp --permanent;
+firewall-cmd --add-port=443/tcp --permanent;
+firewall-cmd --add-port=25/tcp --permanent;
+firewall-cmd --add-port=2525/tcp --permanent;
+firewall-cmd --add-masquerade --permanent;
+firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
+systemctl restart firewalld;
+ufw disable;
+
 # All done
 #
 echo
 echo "Installation complete your server reboot now https://postal.$1"
+
 reboot;
