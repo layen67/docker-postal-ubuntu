@@ -133,8 +133,12 @@ firewall-cmd --add-port=80/tcp --permanent;
 firewall-cmd --add-port=443/tcp --permanent;
 firewall-cmd --add-port=25/tcp --permanent;
 firewall-cmd --add-port=2525/tcp --permanent;
+firewall-cmd --add-port=587/tcp --permanent;
+firewall-cmd --add-port=465/tcp --permanent;
 firewall-cmd --add-masquerade --permanent;
 firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=465:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
 systemctl restart firewalld;
 
 # All done
