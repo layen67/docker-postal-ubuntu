@@ -139,8 +139,6 @@ service nginx restart
 # * Configure the click & open tracking     [ https://github.com/atech/postal/wiki/Click-&-Open-Tracking ]
 # * Configure spam & virus checking         [ https://github.com/atech/postal/wiki/Spam-&-Virus-Checking ]
 
-set -e
-
 #
 # Dependencies
 #
