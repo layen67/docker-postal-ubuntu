@@ -178,7 +178,7 @@ services:
         ipv4_address: 172.20.128.2
     restart: always
     environment:
-#      STAGE: 'production'
+      STAGE: 'production'
       NUMBITS: '4096'
 #        FORCE_RENEW: 'true'
       WORKER_PROCESSES: '4'
