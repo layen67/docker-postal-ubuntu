@@ -90,7 +90,6 @@ systemctl enable spamassassin;
 service nginx restart;
 sleep 10
 postal start
-postal make-user;
 
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
@@ -262,12 +261,13 @@ networks:
 cd /var/lib/docker/wordpress
 docker-compose up -d;
 
-sed -i -r "s/.*tls_certificate_path.*/    tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/signed.crt;/g" /opt/postal/config/postal.yml
-sed -i -r "s/.*tls_private_key_path.*/    tls_private_key_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.key;/g" /opt/postal/config/postal.yml
-sed -i -r "s/.*postal.cert.*/   ssl_certificate          \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/signed.crt;/g" /etc/nginx/sites-available/default;
-sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.key;/g" /etc/nginx/sites-available/default;
+sed -i -r "s/.*tls_certificate_path.*/    tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/production\/signed.crt;/g" /opt/postal/config/postal.yml
+sed -i -r "s/.*tls_private_key_path.*/    tls_private_key_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/production\/domain.key;/g" /opt/postal/config/postal.yml
+sed -i -r "s/.*postal.cert.*/   ssl_certificate          \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/production\/signed.crt;/g" /etc/nginx/sites-available/default;
+sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/production\/domain.key;/g" /etc/nginx/sites-available/default;
 
 service nginx reload
+postal make-user;
 reboot
 #
 # All done
