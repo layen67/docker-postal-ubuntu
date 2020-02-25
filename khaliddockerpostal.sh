@@ -112,8 +112,7 @@ echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.ym
 sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
-service postal restart;
-service postal start;
+systemctl start postal;
 service postal reload;
 sleep 5
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
