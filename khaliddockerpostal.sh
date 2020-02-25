@@ -102,18 +102,20 @@ echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
 
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
-echo '  port: 2525' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  port: 25' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  tls_enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
-echo '  tls_certificate_path: /etc/nginx/ssl/postal.cert;
-echo '  tls_private_key_path: /etc/nginx/ssl/postal.key;
+echo '  tls_certificate_path: #' | sudo tee -a /opt/postal/config/postal.yml;
+echo '  tls_private_key_path: #' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  proxy_protocol: false' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  log_connect: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  strip_received_headers: true' | sudo tee -a /opt/postal/config/postal.yml;
 sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
+sed -i -e "s/mx.postal.$1/postal.$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
+sleep 5
 systemctl start postal;
-service postal reload;
+systemctl restart postal;
 sleep 5
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 sed -i -e "s/80/8082/g" /etc/nginx/sites-available/default;
@@ -260,9 +262,9 @@ networks:
 cd /var/lib/docker/wordpress
 docker-compose up -d;
 
-sed -i -r "s/.*tls_certificate_path.*/    tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.csr;/g" /opt/postal/config/postal.yml;
+sed -i -r "s/.*tls_certificate_path.*/    tls_certificate_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/signed.crt;/g" /opt/postal/config/postal.yml;
 sed -i -r "s/.*tls_private_key_path.*/    tls_private_key_path: \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.key;/g" /opt/postal/config/postal.yml;
-sed -i -r "s/.*postal.cert.*/    ssl_certificate      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.csr;/g" /etc/nginx/sites-available/default;
+sed -i -r "s/.*postal.cert.*/    ssl_certificate         \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/signed.crt;/g" /etc/nginx/sites-available/default;
 sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wordpress\/ssl_certs\/postal.$1\/staging\/domain.key;/g" /etc/nginx/sites-available/default;
 service postal reload
 service nginx reload
