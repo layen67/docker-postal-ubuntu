@@ -261,6 +261,22 @@ sed -i -r "s/.*postal.key.*/    ssl_certificate_key      \/var\/lib\/docker\/wor
 docker-compose up -d;
 sleep 5
 service postal restart;
+sleep 5
+apt update;
+apt-get install -y firewalld;
+systemctl enable firewalld;
+systemctl start firewalld;
+firewall-cmd --add-port=80/tcp --permanent;
+firewall-cmd --add-port=443/tcp --permanent;
+firewall-cmd --add-port=25/tcp --permanent;
+firewall-cmd --add-port=2525/tcp --permanent;
+firewall-cmd --add-port=587/tcp --permanent;
+firewall-cmd --add-port=465/tcp --permanent;
+firewall-cmd --add-masquerade --permanent;
+firewall-cmd --add-forward-port=port=2525:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=465:proto=tcp:toport=25 --permanent;
+firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
+systemctl restart firewalld;
 postal make-user;
 reboot
 #
