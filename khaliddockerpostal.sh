@@ -87,17 +87,12 @@ apt-get -y install spamassassin;
 systemctl restart spamassassin;
 systemctl enable spamassassin;
 
-service nginx restart;
-sleep 10
-postal start
-
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'spamd:' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  enabled: true' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  host: 127.0.0.1' | sudo tee -a /opt/postal/config/postal.yml;
 echo '  port: 783' | sudo tee -a /opt/postal/config/postal.yml;
 # sed -i -e "s/use_ip_pools: false/use_ip_pools: true/g" /opt/postal/config/postal.yml;
-
 
 echo '' | sudo tee -a /opt/postal/config/postal.yml;
 echo 'smtp_server:' | sudo tee -a /opt/postal/config/postal.yml;
@@ -112,15 +107,13 @@ sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 sed -i -e "s/mx.postal.$1/postal.$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
-sleep 5
-systemctl start postal;
-systemctl restart postal;
-sleep 5
+postal restart
+
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 sed -i -e "s/80/8082/g" /etc/nginx/sites-available/default;
 sed -i -e "s/443/8443/g" /etc/nginx/sites-available/default;
-service nginx restart
 
+service nginx restart
 
 #
 # install docker
