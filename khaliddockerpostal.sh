@@ -107,7 +107,7 @@ sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 sed -i -e "s/mx.postal.$1/postal.$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
-postal restart
+service postal start
 
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 sed -i -e "s/80/8082/g" /etc/nginx/sites-available/default;
