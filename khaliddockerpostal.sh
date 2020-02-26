@@ -278,9 +278,12 @@ firewall-cmd --add-forward-port=port=465:proto=tcp:toport=25 --permanent;
 firewall-cmd --add-forward-port=port=587:proto=tcp:toport=25 --permanent;
 systemctl restart firewalld;
 postal make-user;
-reboot
 #
 # All done
 #
 echo
-echo "Installation complete your server reboot now https://postal.$1"
+echo "Installation complete your Mail server is https://postal.$1"
+echo
+echo "Installation complete your wordpress is https://$1"
+
+reboot;
