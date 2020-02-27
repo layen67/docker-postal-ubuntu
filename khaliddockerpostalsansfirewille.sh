@@ -107,13 +107,13 @@ sed -i -e "s/yourdomain.com/$1/g" /opt/postal/config/postal.yml;
 sed -i -e "s/mx.postal.$1/postal.$1/g" /opt/postal/config/postal.yml;
 echo 'postal.$1' > /etc/hostname;
 
-service postal start
+service postal start;
 
 sed -i -e "s/yourdomain.com/$1/g" /etc/nginx/sites-available/default;
 sed -i -e "s/80/8082/g" /etc/nginx/sites-available/default;
 sed -i -e "s/443/8443/g" /etc/nginx/sites-available/default;
 
-service nginx restart
+service nginx restart;
 
 #
 # install docker
@@ -150,11 +150,11 @@ sudo add-apt-repository \
     ubuntu-$(lsb_release -cs) \
     main"
 
-sudo apt-get update
-sudo apt-get -y install docker-engine docker-compose
+sudo apt-get update;
+sudo apt-get -y install docker-engine docker-compose;
 
 # add current user to docker group so there is no need to use sudo when running docker
-sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker $(whoami);
 mkdir /var/lib/docker/wordpress;
 
 echo "
@@ -185,6 +185,7 @@ services:
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
           $1 -> http://172.20.128.4,
+          www.$1 -> http://172.20.128.4,          
           postal.$1 -> https://172.17.0.1:8443
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
@@ -209,7 +210,7 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wordpress:latest
+    image: klayen/wordpress-postal:1.00
     ports:
       - "8000:80"
     volumes:
