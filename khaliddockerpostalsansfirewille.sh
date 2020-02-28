@@ -185,13 +185,13 @@ services:
       CLIENT_MAX_BODY_SIZE: 300M
       DOMAINS: >-
           $1 -> http://172.20.128.4,
-          www.$1 -> http://172.20.128.4,          
+          www.$1 -> http://172.20.128.4,
           postal.$1 -> https://172.17.0.1:8443
     volumes:
       - ./conf.d:/etc/nginx/conf.d/:rw
       - ./ssl_certs:/var/lib/https-portal:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      
+
   db:
     container_name: mysql57
     image: mysql:5.7
