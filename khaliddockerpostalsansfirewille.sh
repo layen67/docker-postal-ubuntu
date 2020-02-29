@@ -264,6 +264,8 @@ sleep 5
 service postal restart;
 sleep 5
 postal make-user;
+sleep 5
+service nginx restart;
 #
 # All done
 #
