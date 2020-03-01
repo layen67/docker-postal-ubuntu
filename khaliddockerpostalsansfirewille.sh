@@ -266,6 +266,8 @@ sleep 5
 postal make-user;
 sleep 5
 service nginx restart;
+sleep 2
+printf 'test@example.com\nFname\nSname\nLongRand0mPassword' | postal make-user;
 #
 # All done
 #
